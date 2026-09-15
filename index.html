@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧЕРНОБОГ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="activationScreen">
+        <div class="activation-text">НАЖМИТЕ ДЛЯ АКТИВАЦИИ</div>
+    </div>
+
+    <canvas id="introLinesCanvas"></canvas>
+
+    <div id="bootScreen">
+        <div class="boot-text" id="bootText"></div>
+    </div>
+
+    <div id="mainInterface" style="display: none;">
+        <canvas id="matrixCanvas"></canvas>
+
+        <div class="main-container">
+            <div class="eye-section">
+                <div class="title">ЧЕРНОБОГ</div>
+                <div class="subtitle">СИСТЕМА КИБЕРБЕЗОПАСНОСТИ</div>
+                <div class="eye-wrapper" id="eyeWrapper">
+                    <canvas id="eyeCanvas" width="200" height="200"></canvas>
+                </div>
+                <div class="status-line" id="statusLine">... сканирую сеть ...</div>
+            </div>
+
+            <div class="chat-container">
+                <div class="messages" id="messageBox"></div>
+
+                <div class="input-area">
+                    <div class="search-wrapper">
+                        <input type="text" id="userInput" placeholder="Начните вводить вопрос..." autocomplete="off" />
+                        <div class="suggestions" id="suggestions"></div>
+                    </div>
+                    <button id="protocolsButton" style="display: none;">Протоколы</button>
+                </div>
+
+                <div class="footer-note">// система активна //</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="protocolsModal" style="display: none;">
+        <div class="protocols-modal-content">
+            <div class="protocols-title">ПРОТОКОЛЫ</div>
+            <div id="protocolsList"></div>
+            <button id="closeProtocolsButton">ЗАКРЫТЬ</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
