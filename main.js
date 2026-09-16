@@ -1,8 +1,14 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const https = require('https');
+const AdmZip = require('adm-zip');
 
 const savePath = path.join(app.getPath('userData'), 'save.json');
+const versionPath = path.join(__dirname, 'version.json');
+
+const VERSION_URL = 'https://raw.githubusercontent.com/1foggy1-ai/chernobog/main/version.json';
+const CURRENT_VERSION = '0.7.0';
 
 function loadSave() {
     try {
@@ -25,6 +31,49 @@ function saveData(data) {
     }
 }
 
+function checkForUpdates() {
+    return new Promise((resolve) => {
+        https.get(VERSION_URL, (res) => {
+            let data = '';
+
+            res.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            res.on('end', () => {
+                try {
+                    const remote = JSON.parse(data);
+                    resolve(remote);
+                } catch (error) {
+                    console.error('Ошибка проверки обновлений:', error);
+                    resolve(null);
+                }
+            });
+        }).on('error', (error) => {
+            console.error('Ошибка сети:', error);
+            resolve(null);
+        });
+    });
+}
+
+function downloadUpdate(url, callback) {
+    https.get(url, (res) => {
+        const chunks = [];
+
+        res.on('data', (chunk) => {
+            chunks.push(chunk);
+        });
+
+        res.on('end', () => {
+            const buffer = Buffer.concat(chunks);
+            callback(buffer);
+        });
+    }).on('error', (error) => {
+        console.error('Ошибка загрузки:', error);
+        callback(null);
+    });
+}
+
 function createWindow() {
     const win = new BrowserWindow({
         width: 900,
@@ -42,6 +91,34 @@ function createWindow() {
     });
 
     win.loadFile('index.html');
+
+    setTimeout(async () => {
+        const remote = await checkForUpdates();
+
+        if (remote && remote.version !== CURRENT_VERSION) {
+            const result = await dialog.showMessageBox(win, {
+                type: 'question',
+                buttons: ['Обновить', 'Позже'],
+                title: 'Доступно обновление',
+                message: `Новая версия: ${remote.version}`,
+                detail: remote.changelog || 'Улучшения и исправления'
+            });
+
+            if (result.response === 0) {
+                downloadUpdate(remote.url, (buffer) => {
+                    if (buffer) {
+                        fs.writeFileSync(path.join(__dirname, 'update.zip'), buffer);
+                        dialog.showMessageBox(win, {
+                            type: 'info',
+                            buttons: ['OK'],
+                            title: 'Обновление',
+                            message: 'Обновление скачано. Перезапустите программу.'
+                        });
+                    }
+                });
+            }
+        }
+    }, 3000);
 }
 
 ipcMain.handle('load-save', () => {
