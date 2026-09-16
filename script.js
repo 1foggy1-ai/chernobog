@@ -1,3 +1,8 @@
+const versionLabel = document.getElementById('versionLabel');
+if (versionLabel) {
+    versionLabel.textContent = 'v0.7.0';
+}
+
 let saveData = {};
 
 async function initSave() {
@@ -45,7 +50,7 @@ const bootLines = [
     'synchronizing data...',
     'all systems operational.',
     '',
-    'CHERNOBOG v0.6.0',
+    'CHERNOBOG v0.7.0',
     'System ready.',
     'Starting...'
 ];
@@ -155,7 +160,6 @@ function startAmbient() {
     ambientNodes = [osc1, osc2, masterGain, filter];
 }
 
-// ===== ЛИНИИ В ИНТРО =====
 const introLinesCtx = introLinesCanvas.getContext('2d');
 let introLinesActive = false;
 let introLines = [];

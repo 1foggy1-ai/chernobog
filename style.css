@@ -23,6 +23,19 @@ body {
     position: relative;
 }
 
+#versionLabel {
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    color: #661111;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    z-index: 50;
+    pointer-events: none;
+    user-select: none;
+}
+
 #activationScreen {
     position: fixed;
     top: 0;
