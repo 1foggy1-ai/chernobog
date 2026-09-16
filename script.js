@@ -50,7 +50,7 @@ const bootLines = [
     'synchronizing data...',
     'all systems operational.',
     '',
-    'CHERNOBOG v0.7.0',
+    'CHERNOBOG v0.7.1',
     'System ready.',
     'Starting...'
 ];
