@@ -5,10 +5,9 @@ const https = require('https');
 const AdmZip = require('adm-zip');
 
 const savePath = path.join(app.getPath('userData'), 'save.json');
-const versionPath = path.join(__dirname, 'version.json');
 
 const VERSION_URL = 'https://raw.githubusercontent.com/1foggy1-ai/chernobog/main/version.json';
-const CURRENT_VERSION = '0.7.0';
+const CURRENT_VERSION = '0.7.1';
 
 function loadSave() {
     try {

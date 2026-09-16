@@ -1,6 +1,6 @@
 const versionLabel = document.getElementById('versionLabel');
 if (versionLabel) {
-    versionLabel.textContent = 'v0.7.0';
+    versionLabel.textContent = 'v0.7.1';
 }
 
 let saveData = {};

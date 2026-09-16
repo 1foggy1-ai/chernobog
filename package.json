@@ -1,6 +1,6 @@
 {
   "name": "chernobog",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "ЧЕРНОБОГ — система кибербезопасности",
   "main": "main.js",
   "scripts": {
@@ -11,6 +11,6 @@
     "electron-packager": "^17.1.2"
   },
   "dependencies": {
-    "adm-zip": "^0.6.1"
+    "adm-zip": "^0.5.16"
   }
 }
